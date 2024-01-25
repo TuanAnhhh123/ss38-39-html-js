@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weight Converter</title>
+  </head>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+    }
+
+    .input-group label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    .input-group input {
+      width: calc(100% - 120px);
+      padding: 5px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Weight Converter</h1>
+      <div class="input-group">
+        <label for="kilograms">Kilograms:</label>
+        <input
+          type="number"
+          id="kilograms"
+          oninput="convertWeight('kilograms', this.value)"
+        />
+      </div>
+      <div class="input-group">
+        <label for="pounds">Pounds:</label>
+        <input
+          type="number"
+          id="pounds"
+          oninput="convertWeight('pounds', this.value)"
+        />
+      </div>
+      <div class="input-group">
+        <label for="ounces">Ounces:</label>
+        <input
+          type="number"
+          id="ounces"
+          oninput="convertWeight('ounces', this.value)"
+        />
+      </div>
+    </div>
+    <script>
+      function convertWeight(source, value) {
+        value = parseFloat(value);
+        if (isNaN(value)) {
+          value = 0;
+        }
+
+        if (source === "kilograms") {
+          document.getElementById("pounds").value = (value * 2.20462).toFixed(
+            2
+          );
+          document.getElementById("ounces").value = (value * 35.274).toFixed(2);
+        } else if (source === "pounds") {
+          document.getElementById("kilograms").value = (
+            value * 0.453592
+          ).toFixed(2);
+          document.getElementById("ounces").value = (value * 16).toFixed(2);
+        } else if (source === "ounces") {
+          document.getElementById("kilograms").value = (
+            value * 0.0283495
+          ).toFixed(2);
+          document.getElementById("pounds").value = (value * 0.0625).toFixed(2);
+        }
+      }
+    </script>
+  </body>
+</html>

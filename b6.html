@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    #progress-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #big-glass {
+      background-color: #3498db;
+      border-radius: 10px;
+      padding: 10px;
+      position: relative;
+      width: 200px;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    #water-level {
+      background-color: #2ecc71;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+    }
+
+    #remaining,
+    #percentage {
+      margin: 5px 0;
+      color: #fff;
+    }
+
+    #small-glasses {
+      display: flex;
+    }
+
+    .small-glass {
+      background-color: #3498db;
+      border-radius: 5px;
+      margin: 0 5px;
+      width: 30px;
+      height: 100px;
+      cursor: pointer;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    #progress-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #big-glass {
+      background-color: #3498db;
+      border-radius: 10px;
+      padding: 10px;
+      position: relative;
+      width: 200px;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    #water-level {
+      background-color: #2ecc71;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+    }
+
+    #remaining,
+    #percentage {
+      margin: 5px 0;
+      color: #fff;
+    }
+
+    #small-glasses {
+      display: flex;
+    }
+
+    .small-glass {
+      background-color: #3498db;
+      border-radius: 5px;
+      margin: 0 5px;
+      width: 30px;
+      height: 100px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Drink Water</h1>
+      <div id="progress-container">
+        <div id="big-glass">
+          <div id="water-level"></div>
+          <p id="remaining">1L Remained</p>
+          <p id="percentage">50%</p>
+        </div>
+        <div id="small-glasses">
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+          <div class="small-glass" onclick="drinkSmallGlass()"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let goal = 2000;
+      let remaining = goal;
+
+      function updateProgress() {
+        const waterLevel = document.getElementById("water-level");
+        const remainingText = document.getElementById("remaining");
+        const percentageText = document.getElementById("percentage");
+
+        const percentage = (((goal - remaining) / goal) * 100).toFixed(0);
+        waterLevel.style.height = `${percentage}%`;
+        remainingText.textContent = `${(remaining / 1000).toFixed(
+          1
+        )}L Remained`;
+        percentageText.textContent = `${percentage}%`;
+      }
+
+      function drinkSmallGlass() {
+        const smallGlass = event.target;
+        smallGlass.style.backgroundColor = "#2ecc71"; 
+
+        if (remaining <= 0) {
+          remaining = 0;
+          document.getElementById("big-glass").style.backgroundColor =
+            "#2ecc71";
+        }
+
+        updateProgress();
+      }
+    </script>
+  </body>
+</html>

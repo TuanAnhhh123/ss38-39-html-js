@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Search for names..</h2>
+      <input
+        type="text"
+        id="searchInput"
+        onkeyup="filterTable()"
+        placeholder="Search..."
+      />
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+          </tr>
+          <tr>
+            <td>Berglunds snabbkop</td>
+            <td>Sweden</td>
+          </tr>
+          <tr>
+            <td>Island Trading</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>Koniglich Essen</td>
+            <td>Germany</td>
+          </tr>
+          <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Canada</td>
+          </tr>
+          <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Italy</td>
+          </tr>
+          <tr>
+            <td>North/South</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>Paris specialites</td>
+            <td>France</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function filterTable() {
+        var filter = document.getElementById("searchInput").value.toUpperCase();
+        var tableRows = document
+          .getElementById("dataTable")
+          .getElementsByTagName("tr");
+
+        for (var i = 0; i < tableRows.length; i++) {
+          var tableData = tableRows[i].getElementsByTagName("td")[0];
+          if (tableData) {
+            var textValue = tableData.textContent || tableData.innerText;
+            if (textValue.toUpperCase().indexOf(filter) > -1) {
+              tableRows[i].style.display = ""; 
+            } else {
+              tableRows[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

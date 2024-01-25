@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .pagination button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <h2>Show 10 entries</h2>
+      <input
+        type="text"
+        id="searchInput"
+        onkeyup="searchTable()"
+        placeholder="Search..."
+      />
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+
+        <tbody id="tableBody"></tbody>
+      </table>
+
+      <div class="pagination">
+        <button onclick="previousPage()">Previous</button>
+        <span id="pageNumber">1</span>
+        <button onclick="nextPage()">Next</button>
+      </div>
+    </div>
+    <script>
+      const employees = [
+        [
+          "Airi Satou",
+          "Chief Executive Officer (CEO)",
+          "Tokyo",
+          33,
+          "2008/11/28",
+          "$162,700",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+        [
+          "Angelica Ramos",
+          "Junior Technical Author",
+          "London",
+          47,
+          "2009/10/09",
+          "$1,200,000",
+        ],
+
+      ];
+
+      const itemsPerPage = 10;
+      let currentPage = 1;
+
+      function displayData(startIndex, endIndex) {
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+
+        for (let i = startIndex; i < endIndex; i++) {
+          const rowData = employees[i];
+          const row = document.createElement("tr");
+          rowData.forEach((cellData) => {
+            const cell = document.createElement("td");
+            cell.textContent = cellData;
+            row.appendChild(cell);
+          });
+          tableBody.appendChild(row);
+        }
+      }
+
+      function searchTable() {
+        const searchInput = document
+          .getElementById("searchInput")
+          .value.toUpperCase();
+        const filteredData = employees.filter((employee) => {
+          return employee.some((data) =>
+            data.toUpperCase().includes(searchInput)
+          );
+        });
+        currentPage = 1;
+        updatePagination();
+        displayData(0, itemsPerPage);
+      }
+
+      function previousPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+          displayData(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+          );
+        }
+      }
+
+
+      function nextPage() {
+        const totalPages = Math.ceil(employees.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+          displayData(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+          );
+        }
+      }
+
+      function updatePagination() {
+        const totalPages = Math.ceil(employees.length / itemsPerPage);
+        document.getElementById("pageNumber").textContent = currentPage;
+      }
+      displayData(0, itemsPerPage);
+      updatePagination();
+    </script>
+  </body>
+</html>
